@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <signal.h>
 
 int main(int argc, char *argv[])
 {
@@ -68,6 +69,8 @@ int main(int argc, char *argv[])
 		perror("proxy");
 		return -1;
 	}
+	
+	signal(SIGPIPE, SIG_IGN);
 
 	while (1) {
 		FD_ZERO(&fds);
