@@ -19,11 +19,13 @@
 
 #include <netinet/in.h>
 #include <netinet/tcp.h>
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/select.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 struct sockaddr_in remote_addr;
 

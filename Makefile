@@ -1,6 +1,6 @@
 # Makefile for pproxy
 
-CFLAGS ?=
+CFLAGS ?= -O2 -Wall
 LDFLAGS ?= -lpthread
 
 TARGET = pproxy
