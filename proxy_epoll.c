@@ -38,7 +38,7 @@ static void *proxy_routine(void *arg)
 	int i, ready;
 	ssize_t bytes;
 	struct proxy_node *node;
-	struct proxy_pair *pair, pair_next;
+	struct proxy_pair *pair, *pair_next;
 	struct engine_epoll *object = (struct engine_epoll *)arg;
 
 	while (object->thread_running) {
