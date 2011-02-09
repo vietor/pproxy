@@ -38,7 +38,7 @@ static void *proxy_routine(void *arg)
 	int i, ready;
 	ssize_t bytes;
 	struct proxy_node *node;
-	struct proxy_pair *pair;
+	struct proxy_pair *pair, *pair_next;
 	struct engine_epoll *object = (struct engine_epoll *)arg;
 
 	while (object->thread_running) {
@@ -77,12 +77,15 @@ static void *proxy_routine(void *arg)
 			}
 		}
 		pthread_mutex_lock(&object->mutex);
-		for (pair = object->deleted.next; pair != NULL; pair = pair->next) {
+		pair = object->deleted.next;
+		while (pair != NULL) {
 			close(pair->node[0].sock);
 			close(pair->node[1].sock);
+			object->stat.pairs--;
+			pair_next = pair->next;
 			pair->next = object->pool;
 			object->pool = pair;
-			object->stat.pairs--;
+			pair = pair_next;
 		}
 		pthread_mutex_unlock(&object->mutex);
 	}
